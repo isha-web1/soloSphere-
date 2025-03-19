@@ -24,6 +24,24 @@ const Login = () => {
     }
 
     // email password signin
+
+    const handleSignIn = async e =>{
+        e.preventDefault()
+        const form = e.target
+        const email = form.email.value;
+        const pass = form.password.value;
+        console.log({email,pass})
+        // user login
+        try{
+         const result = await signIn(email,pass)
+         console.log(result)
+         navigate('/')
+         toast.success('signIn successful')
+        }catch(err){
+            console.log(err)
+            toast.error(err?.message)
+        }
+    }
         
     return (
       <div className='flex justify-center items-center min-h-[calc(100vh-306px)] my-12'>
@@ -84,7 +102,7 @@ const Login = () => {
   
               <span className='w-1/5 border-b dark:border-gray-400 lg:w-1/4'></span>
             </div>
-            <form>
+            <form onSubmit={handleSignIn}>
               <div className='mt-4'>
                 <label
                   className='block mb-2 text-sm font-medium text-gray-600 '
