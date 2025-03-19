@@ -1,6 +1,10 @@
+import { useContext } from 'react'
 import logo from '../assets/logo.png'
+import { AuthContext } from '../provider/AuthProvider'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
+    const {user} = useContext(AuthContext)
     return (
       <div className='navbar bg-base-100 shadow-sm container px-4 mx-auto'>
         <div className='flex-1'>
@@ -15,12 +19,12 @@ const Navbar = () => {
               <div>Home</div>
             </li>
   
-            <li>
-              <div>Login</div>
-            </li>
+            {!user && (<li>
+              <Link to='/login'>Login</Link>
+            </li>)}
           </ul>
   
-          <div className='dropdown dropdown-end z-50'>
+          {user && (<div className='dropdown dropdown-end z-50'>
             <div
               tabIndex={0}
               role='button'
@@ -54,7 +58,7 @@ const Navbar = () => {
                 <button className='bg-gray-200 block text-center'>Logout</button>
               </li>
             </ul>
-          </div>
+          </div>)}
         </div>
       </div>
     )
